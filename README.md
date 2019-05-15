@@ -66,18 +66,27 @@ ecdsa.sign(key, data, hash, digest, cb)
 ecdsa.verify(key, sig, data, hash, digest, cb)
 
 
+
+//demo
+
+const config = {
+  curve: '521', // p-521
+  hash: '512', // SHA-512
+  degest: 'hex', // hexadecimal
+  data: 'test'
+}
 //generate p-521 ecdsa keypair
-ecdsa.gen('521', function(err, gen){
+ecdsa.gen(config.curve, function(err, gen){
   if(err){return console.log(err)}
   console.log(gen)
 
   //sign some data
-  ecdsa.sign(gen.private, 'test', '512', 'hex', function(err, res){
+  ecdsa.sign(gen.private, config.data, config.hash, config.digest, function(err, sig){
     if(err){return console.log(err)}
     console.log(res)
 
-    //verify data
-    ecdsa.verify(gen.public, res, 'test', '512', 'hex', function(err, res){
+    //verify signature
+    ecdsa.verify(gen.public, sig, config.data, config.hash, config.digest, function(err, res){
       if(err){return console.log(err)}
       if(res){
         return console.log('ecdsa test pass')
