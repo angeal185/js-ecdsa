@@ -1,0 +1,29 @@
+{
+  "name": "js-ecdsa",
+  "description": "ecdsa for the browser using the webcrypto api",
+  "main": "./dist/js-ecdsa.js",
+  "authors": [
+    "ben eaves"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "ecdsa",
+    "webcrypto",
+    "webcrypto-api",
+    "signing",
+    "verify",
+    "sign",
+    "verification",
+    "browser",
+    "elliptic-curve",
+    "elliptic-curve-cryptography"
+  ],
+  "homepage": "https://github.com/angeal185/js-ecdsa",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
