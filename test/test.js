@@ -1,4 +1,12 @@
-
+const ss = {
+  get: function(){
+    return JSON.parse(sessionStorage.getItem('time'));
+  },
+  set: function(i){
+    sessionStorage.setItem('time', JSON.stringify(i));
+    return
+  }
+}
 
 const ecdsa = {
   u82str: function(STR) {
@@ -25,7 +33,7 @@ const ecdsa = {
     return btoa(ecdsa.u82str(byteArray))
   },
   h2a: function(hexString) {
-    var result = [];
+    let result = [];
     for (var i = 0; i < hexString.length; i += 2) {
       result.push(parseInt(hexString.substr(i, 2), 16));
     }
@@ -134,20 +142,57 @@ const ecdsa = {
   }
 }
 
-//test
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
-ecdsa.gen('521', function(err, gen){
-  if(err){return console.log(err)}
-  //console.log(gen)
-  ecdsa.sign(gen.private, 'test', '512', 'u8', function(err, res){
+function test(crv,hash,digest, msg){
+  let time = Date.now();
+  ecdsa.gen(crv, function(err, gen){
     if(err){return console.log(err)}
-    console.log(res)
-    ecdsa.verify(gen.public, res, 'test', '512', 'u8', function(err, res){
+    //console.log(gen)
+    ecdsa.sign(gen.private, 'test', hash, digest, function(err, res){
       if(err){return console.log(err)}
-      if(res){
-        return console.log('ecdsa test pass')
-      }
-      return console.log('ecdsa test fail')
+      //console.log(res)
+      ecdsa.verify(gen.public, res, 'test', hash, digest, function(err, res){
+        if(err){return console.log(err)}
+        if(res){
+          document.body.innerHTML += 'ecdsa '+ msg +' pass <br>';
+          console.log('ecdsa '+ msg +' pass')
+          ss.set(ss.get()+1)
+          if(ss.get() === 15){
+            document.body.innerHTML += 'Test finished in '+ (Date.now() - time) +'ms';
+          }
+          return;
+        }
+        console.log('ecdsa '+ msg +' fail')
+        document.body.innerHTML += 'ecdsa '+ msg +' fail <br>'
+        return ss.set(ss.get()+1)
+      })
     })
   })
-})
+}
+
+
+ss.set(0)
+let CRV = shuffle(['256','384','521']),
+HASH = shuffle(['256','384','512']),
+DIGEST = shuffle(['hex','base64','Uint8Array']);
+
+try {
+  for (let x = 0; x < 5; x++) {
+    for (let i = 0; i < CRV.length; i++) {
+      let arr = ['curve ' + CRV[i], 'hash ' + HASH[i], 'digest ' + DIGEST[i]],
+      msg = arr.join(', ');
+      test(CRV[i], HASH[i], DIGEST[i], msg + ' test ' + (x + 1) +' round ' + (i + 1))
+    }
+  }
+} catch (err) {
+  if(err){
+    console.log(err)
+  }
+}
