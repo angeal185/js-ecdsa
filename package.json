@@ -2,7 +2,7 @@
   "name": "js-ecdsa",
   "version": "1.0.0",
   "description": "ecdsa for the browser using the webcrypto api",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "directories": {
     "doc": "docs",
     "lib": "lib"
