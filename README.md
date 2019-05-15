@@ -75,6 +75,7 @@ const config = {
   degest: 'hex', // hexadecimal
   data: 'test'
 }
+
 //generate p-521 ecdsa keypair
 ecdsa.gen(config.curve, function(err, gen){
   if(err){return console.log(err)}
