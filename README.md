@@ -84,7 +84,7 @@ ecdsa.gen(config.curve, function(err, gen){
   //sign some data
   ecdsa.sign(gen.private, config.data, config.hash, config.digest, function(err, sig){
     if(err){return console.log(err)}
-    console.log(res)
+    console.log(sig)
 
     //verify signature
     ecdsa.verify(gen.public, sig, config.data, config.hash, config.digest, function(err, res){
