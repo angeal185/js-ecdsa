@@ -48,16 +48,16 @@ const ecdsa = {
               cb(false,obj)
           })
           .catch(function(err){
-            cb(err);
+            cb(err,null);
           });
       })
       .catch(function(err){
-        cb(err);
+        cb(err,null);
       });
 
     })
     .catch(function(err){
-        cb(err);
+        cb(err,null);
     });
   },
   sign: function(key, data, hash, digest, cb){
@@ -75,11 +75,11 @@ const ecdsa = {
         cb(false,sig);
       })
       .catch(function(err){
-          cb(err);
+          cb(err,null);
       });
     })
     .catch(function(err){
-        cb(err);
+        cb(err,null);
     });
 
   },
@@ -99,11 +99,11 @@ const ecdsa = {
           cb(false, isvalid)
       })
       .catch(function(err){
-          cb(err);
+          cb(err,null);
       });
     })
     .catch(function(err){
-        cb(err);
+        cb(err,null);
     });
   },
   hash: function(i,data){
