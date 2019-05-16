@@ -1,7 +1,7 @@
 # js-ecdsa
 ecdsa for the browser using the webcrypto api
 
-Demo: https://angeal185.github.io/js-ecdsa
+Demo: https://angeal185.github.io/jquery-ecdsa
 
 ### Installation
 
