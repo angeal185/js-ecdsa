@@ -72,7 +72,7 @@ ecdsa.verify(key, sig, data, hash, digest, cb)
 const config = {
   curve: '521', // P-521
   hash: '512', // SHA-512
-  degest: 'hex', // hexadecimal
+  digest: 'hex', // hexadecimal
   data: 'test'
 }
 
